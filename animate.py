@@ -40,16 +40,20 @@ def gen_points(f: str):
 
 fg = plt.figure()
 ax = fg.add_subplot(projection="3d")
-
-
-fg = plt.figure()
-ax = fg.add_subplot(projection="3d")
+ax.azim = 0
+ax.elev = 30
 
 
 def animate(filename):
     points = gen_points(filename)
     transposed = list(zip(*points))
-    ax.scatter3D(transposed[0], transposed[1], transposed[2], c=transposed[3], s=1)
+    ax.scatter3D(
+        transposed[0],
+        transposed[1],
+        list(map(lambda a: a * -1, transposed[2])),
+        c=transposed[3],
+        s=0.01,
+    )
     return
 
 
