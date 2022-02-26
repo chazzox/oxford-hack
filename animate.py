@@ -1,16 +1,12 @@
 """this codebase is purposefully shit i swear"""
-from ast import List
 import datetime
 import os
+import matplotlib.animation as animation
 import matplotlib.pyplot as plt
-
-fig = plt.figure()
-ax = fig.add_subplot(projection="3d")
 
 
 FRAME_DIR = "./keyframes"
 
-keyframes = sorted(os.listdir(FRAME_DIR))
 
 FORMAT_DICT = {
     "I": int,
@@ -19,14 +15,7 @@ FORMAT_DICT = {
 }
 
 
-def gen_points(p: str, f) -> list:
-    return [
-        [FORMAT_DICT[f[i]](v) for i, v in enumerate(point_line.split(" ")) if v != ""]
-        for point_line in p
-    ]
-
-
-for f in keyframes[:1]:
+def gen_points(f: str):
     with open(os.path.join(FRAME_DIR, f)) as file:
         f_data = file.read()
 
@@ -43,13 +32,30 @@ for f in keyframes[:1]:
 
         head["type"] = head["type"].split(" ")
 
-        points = gen_points(f_data_str[:-1], head["type"])
+    return [
+        [FORMAT_DICT[head["type"][i]](v) for i, v in enumerate(point_line.split(" "))]
+        for point_line in f_data_str[1:-1]
+    ]
 
 
-fig = plt.figure()
-ax = fig.add_subplot(projection="3d")
-
-xyz = list(zip(*[v[:3] for v in points], strict=True))
+fg = plt.figure()
+ax = fg.add_subplot(projection="3d")
 
 
-print(len(xyz), xyz)
+fg = plt.figure()
+ax = fg.add_subplot(projection="3d")
+
+
+def animate(filename):
+    points = gen_points(filename)
+    transposed = list(zip(*points))
+    ax.scatter3D(transposed[0], transposed[1], transposed[2], c=transposed[3], s=1)
+    return
+
+
+ani = animation.FuncAnimation(
+    fg, animate, interval=500, frames=sorted(os.listdir(FRAME_DIR))
+)
+
+
+plt.show()
