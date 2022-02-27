@@ -26,7 +26,7 @@ const PCD: React.FC<{ index: number }> = ({ index }) => {
 
 	const keyframe_urls = [f1, f2, f3, f4, f5, f6, f7, f8, f9, f10];
 
-	const pcd = useLoader(PCDLoader, new URL(keyframe_urls[index], import.meta.url).href);
+	const pcd = useLoader(PCDLoader, keyframe_urls[index]);
 
 	useEffect(() => {
 		document.onkeydown = (e: KeyboardEvent) => {
