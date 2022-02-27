@@ -5,6 +5,17 @@ import { Canvas, useLoader, useThree } from "@react-three/fiber";
 import { Html, OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { Vector3 } from "three";
 
+import f1 from "../keyframes/lidar_points_235.pcd?url";
+import f2 from "../keyframes/lidar_points_245.pcd?url";
+import f3 from "../keyframes/lidar_points_255.pcd?url";
+import f4 from "../keyframes/lidar_points_265.pcd?url";
+import f5 from "../keyframes/lidar_points_275.pcd?url";
+import f6 from "../keyframes/lidar_points_285.pcd?url";
+import f7 from "../keyframes/lidar_points_295.pcd?url";
+import f8 from "../keyframes/lidar_points_305.pcd?url";
+import f9 from "../keyframes/lidar_points_315.pcd?url";
+import f10 from "../keyframes/lidar_points_325.pcd?url";
+
 enum KEYS {
 	KEY_A = "a",
 	KEY_D = "d"
@@ -13,18 +24,7 @@ enum KEYS {
 const PCD: React.FC<{ index: number }> = ({ index }) => {
 	const { scene } = useThree();
 
-	const keyframe_urls = [
-		"../keyframes/lidar_points_235.pcd",
-		"../keyframes/lidar_points_245.pcd",
-		"../keyframes/lidar_points_255.pcd",
-		"../keyframes/lidar_points_265.pcd",
-		"../keyframes/lidar_points_275.pcd",
-		"../keyframes/lidar_points_285.pcd",
-		"../keyframes/lidar_points_295.pcd",
-		"../keyframes/lidar_points_305.pcd",
-		"../keyframes/lidar_points_315.pcd",
-		"../keyframes/lidar_points_325.pcd"
-	];
+	const keyframe_urls = [f1, f2, f3, f4, f5, f6, f7, f8, f9, f10];
 
 	const pcd = useLoader(PCDLoader, new URL(keyframe_urls[index], import.meta.url).href);
 
